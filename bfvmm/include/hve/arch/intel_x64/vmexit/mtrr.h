@@ -19,11 +19,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef VMEXIT_EXTERNAL_INTERRUPT_INTEL_X64_BOXY_H
-#define VMEXIT_EXTERNAL_INTERRUPT_INTEL_X64_BOXY_H
+#ifndef VMEXIT_MTRR_INTEL_X64_BOXY_H
+#define VMEXIT_MTRR_INTEL_X64_BOXY_H
 
 #include <bfvmm/hve/arch/intel_x64/vcpu.h>
-#include <bfvmm/hve/arch/intel_x64/vmexit/external_interrupt.h>
+#include <bfvmm/hve/arch/intel_x64/vmexit/rdmsr.h>
+#include <bfvmm/hve/arch/intel_x64/vmexit/wrmsr.h>
 
 // -----------------------------------------------------------------------------
 // Definitions
@@ -34,7 +35,7 @@ namespace boxy::intel_x64
 
 class vcpu;
 
-class external_interrupt_handler
+class mtrr_handler
 {
 public:
 
@@ -43,9 +44,9 @@ public:
     /// @expects
     /// @ensures
     ///
-    /// @param vcpu the vcpu object for this interrupt window handler
+    /// @param vcpu the vcpu object for this handler
     ///
-    external_interrupt_handler(
+    mtrr_handler(
         gsl::not_null<vcpu *> vcpu);
 
     /// Destructor
@@ -53,30 +54,45 @@ public:
     /// @expects
     /// @ensures
     ///
-    ~external_interrupt_handler() = default;
+    ~mtrr_handler() = default;
 
 public:
 
     /// @cond
 
-    bool handle(
-        vcpu_t *vcpu, bfvmm::intel_x64::external_interrupt_handler::info_t &info);
+    bool handle_rdmsr_0x000000FE(
+        vcpu_t *vcpu, bfvmm::intel_x64::rdmsr_handler::info_t &info);
+    bool handle_wrmsr_0x000000FE(
+        vcpu_t *vcpu, bfvmm::intel_x64::wrmsr_handler::info_t &info);
+    bool handle_rdmsr_0x00000200(
+        vcpu_t *vcpu, bfvmm::intel_x64::rdmsr_handler::info_t &info);
+    bool handle_wrmsr_0x00000200(
+        vcpu_t *vcpu, bfvmm::intel_x64::wrmsr_handler::info_t &info);
+    bool handle_rdmsr_0x00000201(
+        vcpu_t *vcpu, bfvmm::intel_x64::rdmsr_handler::info_t &info);
+    bool handle_wrmsr_0x00000201(
+        vcpu_t *vcpu, bfvmm::intel_x64::wrmsr_handler::info_t &info);
+    bool handle_rdmsr_0x000002FF(
+        vcpu_t *vcpu, bfvmm::intel_x64::rdmsr_handler::info_t &info);
+    bool handle_wrmsr_0x000002FF(
+        vcpu_t *vcpu, bfvmm::intel_x64::wrmsr_handler::info_t &info);
 
     /// @endcond
 
 private:
 
     vcpu *m_vcpu;
+    uint64_t m_mtrr_def_type{0xC00};
 
 public:
 
     /// @cond
 
-    external_interrupt_handler(external_interrupt_handler &&) = default;
-    external_interrupt_handler &operator=(external_interrupt_handler &&) = default;
+    mtrr_handler(mtrr_handler &&) = default;
+    mtrr_handler &operator=(mtrr_handler &&) = default;
 
-    external_interrupt_handler(const external_interrupt_handler &) = delete;
-    external_interrupt_handler &operator=(const external_interrupt_handler &) = delete;
+    mtrr_handler(const mtrr_handler &) = delete;
+    mtrr_handler &operator=(const mtrr_handler &) = delete;
 
     /// @endcond
 };

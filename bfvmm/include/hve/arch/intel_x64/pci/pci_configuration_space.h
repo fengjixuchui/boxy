@@ -26,22 +26,6 @@
 #include <bfvmm/hve/arch/intel_x64/vmexit/io_instruction.h>
 
 // -----------------------------------------------------------------------------
-// Exports
-// -----------------------------------------------------------------------------
-
-#include <bfexports.h>
-
-#ifndef STATIC_BOXY_HVE
-#ifdef SHARED_BOXY_HVE
-#define EXPORT_BOXY_HVE EXPORT_SYM
-#else
-#define EXPORT_BOXY_HVE IMPORT_SYM
-#endif
-#else
-#define EXPORT_BOXY_HVE
-#endif
-
-// -----------------------------------------------------------------------------
 // Definitions
 // -----------------------------------------------------------------------------
 
@@ -50,7 +34,7 @@ namespace boxy::intel_x64
 
 class vcpu;
 
-class EXPORT_BOXY_HVE pci_configuration_space_handler
+class pci_configuration_space_handler
 {
 public:
 
@@ -76,33 +60,33 @@ public:
     /// @cond
 
     bool handle_in_0x0CF8(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool handle_out_0x0CF8(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool handle_in_0x0CFA(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool handle_out_0x0CFA(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool handle_in_0x0CFB(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool handle_out_0x0CFB(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool handle_in_0x0CFC(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool handle_out_0x0CFC(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool handle_in_0x0CFD(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool handle_out_0x0CFD(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool handle_in_0x0CFE(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool handle_out_0x0CFE(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool handle_in_0x0CFF(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool handle_out_0x0CFF(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
 
     /// @endcond
 

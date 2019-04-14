@@ -29,6 +29,7 @@
 #include "vmexit/external_interrupt.h"
 #include "vmexit/io_instruction.h"
 #include "vmexit/msr.h"
+#include "vmexit/mtrr.h"
 #include "vmexit/vmcall.h"
 #include "vmexit/yield.h"
 
@@ -41,22 +42,6 @@
 #include <bfvmm/vcpu/vcpu_manager.h>
 #include <bfvmm/hve/arch/intel_x64/vcpu.h>
 
-// -----------------------------------------------------------------------------
-// Exports
-// -----------------------------------------------------------------------------
-
-#include <bfexports.h>
-
-#ifndef STATIC_BOXY_HVE
-#ifdef SHARED_BOXY_HVE
-#define EXPORT_BOXY_HVE EXPORT_SYM
-#else
-#define EXPORT_BOXY_HVE IMPORT_SYM
-#endif
-#else
-#define EXPORT_BOXY_HVE
-#endif
-
 //------------------------------------------------------------------------------
 // Definition
 //------------------------------------------------------------------------------
@@ -64,7 +49,7 @@
 namespace boxy::intel_x64
 {
 
-class EXPORT_BOXY_HVE vcpu : public bfvmm::intel_x64::vcpu
+class vcpu : public bfvmm::intel_x64::vcpu
 {
 public:
 
@@ -301,6 +286,7 @@ private:
     external_interrupt_handler m_external_interrupt_handler;
     io_instruction_handler m_io_instruction_handler;
     msr_handler m_msr_handler;
+    mtrr_handler m_mtrr_handler;
     vmcall_handler m_vmcall_handler;
     yield_handler m_yield_handler;
 

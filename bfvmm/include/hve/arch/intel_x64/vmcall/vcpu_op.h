@@ -25,22 +25,6 @@
 #include <bfvmm/hve/arch/intel_x64/vcpu.h>
 
 // -----------------------------------------------------------------------------
-// Exports
-// -----------------------------------------------------------------------------
-
-#include <bfexports.h>
-
-#ifndef STATIC_BOXY_HVE
-#ifdef SHARED_BOXY_HVE
-#define EXPORT_BOXY_HVE EXPORT_SYM
-#else
-#define EXPORT_BOXY_HVE IMPORT_SYM
-#endif
-#else
-#define EXPORT_BOXY_HVE
-#endif
-
-// -----------------------------------------------------------------------------
 // Definitions
 // -----------------------------------------------------------------------------
 
@@ -49,7 +33,7 @@ namespace boxy::intel_x64
 
 class vcpu;
 
-class EXPORT_BOXY_HVE vmcall_vcpu_op_handler
+class vmcall_vcpu_op_handler
 {
 public:
 
@@ -65,11 +49,11 @@ public:
 
 private:
 
-    void vcpu_op__create_vcpu(gsl::not_null<vcpu *> vcpu);
-    void vcpu_op__kill_vcpu(gsl::not_null<vcpu *> vcpu);
-    void vcpu_op__destroy_vcpu(gsl::not_null<vcpu *> vcpu);
+    void vcpu_op__create_vcpu(vcpu *vcpu);
+    void vcpu_op__kill_vcpu(vcpu *vcpu);
+    void vcpu_op__destroy_vcpu(vcpu *vcpu);
 
-    bool dispatch(gsl::not_null<vcpu *> vcpu);
+    bool dispatch(vcpu *vcpu);
 
 private:
 

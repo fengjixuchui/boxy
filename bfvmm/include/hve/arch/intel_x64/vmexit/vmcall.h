@@ -25,22 +25,6 @@
 #include <bfvmm/hve/arch/intel_x64/vcpu.h>
 
 // -----------------------------------------------------------------------------
-// Exports
-// -----------------------------------------------------------------------------
-
-#include <bfexports.h>
-
-#ifndef STATIC_BOXY_HVE
-#ifdef SHARED_BOXY_HVE
-#define EXPORT_BOXY_HVE EXPORT_SYM
-#else
-#define EXPORT_BOXY_HVE IMPORT_SYM
-#endif
-#else
-#define EXPORT_BOXY_HVE
-#endif
-
-// -----------------------------------------------------------------------------
 // Definitions
 // -----------------------------------------------------------------------------
 
@@ -49,7 +33,7 @@ namespace boxy::intel_x64
 
 class vcpu;
 
-class EXPORT_BOXY_HVE vmcall_handler
+class vmcall_handler
 {
 public:
 
@@ -58,8 +42,7 @@ public:
     /// The type of delegate clients must use when registering
     /// handlers
     ///
-    using handler_delegate_t =
-        delegate<bool(gsl::not_null<vcpu *>)>;
+    using handler_delegate_t = delegate<bool(vcpu *)>;
 
 #define vmcall_handler_delegate(a,b) \
     vmcall_handler::handler_delegate_t::create<a, &a::b>(this)
@@ -96,7 +79,7 @@ public:
 
     /// @cond
 
-    bool handle(gsl::not_null<vcpu_t *> vcpu);
+    bool handle(vcpu_t *vcpu);
 
     /// @endcond
 

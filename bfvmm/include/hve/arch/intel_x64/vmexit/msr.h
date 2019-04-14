@@ -29,22 +29,6 @@
 #include <unordered_map>
 
 // -----------------------------------------------------------------------------
-// Exports
-// -----------------------------------------------------------------------------
-
-#include <bfexports.h>
-
-#ifndef STATIC_BOXY_HVE
-#ifdef SHARED_BOXY_HVE
-#define EXPORT_BOXY_HVE EXPORT_SYM
-#else
-#define EXPORT_BOXY_HVE IMPORT_SYM
-#endif
-#else
-#define EXPORT_BOXY_HVE
-#endif
-
-// -----------------------------------------------------------------------------
 // Definitions
 // -----------------------------------------------------------------------------
 
@@ -53,7 +37,7 @@ namespace boxy::intel_x64
 
 class vcpu;
 
-class EXPORT_BOXY_HVE msr_handler
+class msr_handler
 {
 public:
 
@@ -83,9 +67,9 @@ public:
     void isolate_msr__on_run(
         bfobject *obj);
     bool isolate_msr__on_exit(
-        gsl::not_null<vcpu_t *> vcpu);
+        vcpu_t *vcpu);
     bool isolate_msr__on_write(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::wrmsr_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::wrmsr_handler::info_t &info);
 
     /// @endcond
 
@@ -94,33 +78,33 @@ public:
     /// @cond
 
     bool handle_rdmsr_0x00000034(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::rdmsr_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::rdmsr_handler::info_t &info);
     bool handle_wrmsr_0x00000034(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::wrmsr_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::wrmsr_handler::info_t &info);
     bool handle_rdmsr_0x000000CE(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::rdmsr_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::rdmsr_handler::info_t &info);
     bool handle_wrmsr_0x000000CE(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::wrmsr_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::wrmsr_handler::info_t &info);
     bool handle_rdmsr_0x00000140(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::rdmsr_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::rdmsr_handler::info_t &info);
     bool handle_wrmsr_0x00000140(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::wrmsr_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::wrmsr_handler::info_t &info);
     bool handle_rdmsr_0x000001A0(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::rdmsr_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::rdmsr_handler::info_t &info);
     bool handle_wrmsr_0x000001A0(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::wrmsr_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::wrmsr_handler::info_t &info);
     bool handle_rdmsr_0x00000606(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::rdmsr_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::rdmsr_handler::info_t &info);
     bool handle_wrmsr_0x00000606(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::wrmsr_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::wrmsr_handler::info_t &info);
     bool handle_rdmsr_0x0000064E(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::rdmsr_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::rdmsr_handler::info_t &info);
     bool handle_wrmsr_0x0000064E(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::wrmsr_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::wrmsr_handler::info_t &info);
     bool handle_rdmsr_0xC0000103(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::rdmsr_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::rdmsr_handler::info_t &info);
     bool handle_wrmsr_0xC0000103(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::wrmsr_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::wrmsr_handler::info_t &info);
 
     /// @endcond
 

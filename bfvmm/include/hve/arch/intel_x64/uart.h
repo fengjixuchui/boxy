@@ -33,22 +33,6 @@
 #include <bfvmm/hve/arch/intel_x64/vmexit/cpuid.h>
 #include <bfvmm/hve/arch/intel_x64/vmexit/io_instruction.h>
 
-// -----------------------------------------------------------------------------
-// Exports
-// -----------------------------------------------------------------------------
-
-#include <bfexports.h>
-
-#ifndef STATIC_BOXY_HVE
-#ifdef SHARED_BOXY_HVE
-#define EXPORT_BOXY_HVE EXPORT_SYM
-#else
-#define EXPORT_BOXY_HVE IMPORT_SYM
-#endif
-#else
-#define EXPORT_BOXY_HVE
-#endif
-
 //------------------------------------------------------------------------------
 // Definition
 //------------------------------------------------------------------------------
@@ -58,7 +42,7 @@ namespace boxy::intel_x64
 
 class vcpu;
 
-class EXPORT_BOXY_HVE uart
+class uart
 {
 public:
 
@@ -138,43 +122,43 @@ public:
 private:
 
     bool io_zero_handler(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool io_ignore_handler(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
 
     bool reg0_in_handler(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool reg1_in_handler(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool reg2_in_handler(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool reg3_in_handler(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool reg4_in_handler(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool reg5_in_handler(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool reg6_in_handler(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool reg7_in_handler(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
 
     bool reg0_out_handler(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool reg1_out_handler(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool reg2_out_handler(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool reg3_out_handler(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool reg4_out_handler(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool reg5_out_handler(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool reg6_out_handler(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
     bool reg7_out_handler(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::io_instruction_handler::info_t &info);
 
     bool dlab() const
     { return m_line_control_register & 0x80; }
@@ -182,7 +166,7 @@ private:
     void write(const char c);
     void write(const char *str);
 
-    bool vmcall_dispatch(gsl::not_null<vcpu *> vcpu);
+    bool vmcall_dispatch(vcpu *vcpu);
 
 private:
 

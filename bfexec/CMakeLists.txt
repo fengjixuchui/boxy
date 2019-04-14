@@ -20,29 +20,28 @@
 # SOFTWARE.
 
 cmake_minimum_required(VERSION 3.13)
-project(boxy_bfvmm_main C CXX)
+project(bfexec C CXX)
 
-include(${SOURCE_CMAKE_DIR}/project.cmake)
-init_project(
-    INCLUDES ${CMAKE_CURRENT_LIST_DIR}/../../include
-    INCLUDES ${CMAKE_CURRENT_LIST_DIR}/../../../include
-    INCLUDES ${CMAKE_CURRENT_LIST_DIR}/../../../bfsdk/include
+init_project(bfexec BINARY)
+
+string(TOLOWER ${BUILD_TARGET_OS} OS)
+
+target_link_libraries(bfexec PUBLIC
+    userspace::bfroot
+    userspace::bfintrinsics
+    $<$<BOOL:${UNIX}>:pthread>
+    $<$<OR:$<BOOL:${CYGWIN}>,$<BOOL:${WIN32}>>:setupapi>
+)
+target_include_directories(bfexec PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/../bfsdk/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/../bfvmm/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/src/platform/${OS}>
+)
+target_sources(bfexec PRIVATE
+    src/main.cpp
+    src/platform/${OS}/ioctl.cpp
+    src/platform/${OS}/ioctl_private.cpp
 )
 
-if(${BUILD_TARGET_ARCH} STREQUAL "x86_64")
-    list(APPEND SOURCES
-        arch/intel_x64/domain_factory.cpp
-        arch/intel_x64/vcpu_factory.cpp
-    )
-elseif(${BUILD_TARGET_ARCH} STREQUAL "aarch64")
-    message(WARNING "Unimplemented")
-else()
-    message(FATAL_ERROR "Unsupported archiecture")
-endif()
-
-add_vmm_executable(
-    boxy_bfvmm
-    LIBRARIES boxy_hve
-    LIBRARIES boxy_domain
-    SOURCES ${SOURCES}
-)
+fini_project()

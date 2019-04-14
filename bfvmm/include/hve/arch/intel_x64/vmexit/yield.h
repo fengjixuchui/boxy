@@ -27,22 +27,6 @@
 #include <bfvmm/hve/arch/intel_x64/vmexit/wrmsr.h>
 
 // -----------------------------------------------------------------------------
-// Exports
-// -----------------------------------------------------------------------------
-
-#include <bfexports.h>
-
-#ifndef STATIC_BOXY_HVE
-#ifdef SHARED_BOXY_HVE
-#define EXPORT_BOXY_HVE EXPORT_SYM
-#else
-#define EXPORT_BOXY_HVE IMPORT_SYM
-#endif
-#else
-#define EXPORT_BOXY_HVE
-#endif
-
-// -----------------------------------------------------------------------------
 // Definitions
 // -----------------------------------------------------------------------------
 
@@ -51,7 +35,7 @@ namespace boxy::intel_x64
 
 class vcpu;
 
-class EXPORT_BOXY_HVE yield_handler
+class yield_handler
 {
 public:
 
@@ -76,13 +60,13 @@ public:
 
     /// @cond
 
-    bool handle_hlt(gsl::not_null<vcpu_t *> vcpu);
-    bool handle_preemption(gsl::not_null<vcpu_t *> vcpu);
+    bool handle_hlt(vcpu_t *vcpu);
+    bool handle_preemption(vcpu_t *vcpu);
 
     bool handle_rdmsr_0x000006E0(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::rdmsr_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::rdmsr_handler::info_t &info);
     bool handle_wrmsr_0x000006E0(
-        gsl::not_null<vcpu_t *> vcpu, bfvmm::intel_x64::wrmsr_handler::info_t &info);
+        vcpu_t *vcpu, bfvmm::intel_x64::wrmsr_handler::info_t &info);
 
     /// @endcond
 
